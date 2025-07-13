@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Settings</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            width: 250px;
+        }
+        textarea {
+            width: 95%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h3>Allowed Domains</h3>
+    <p>Enter domains one per line. If empty, QR codes will be shown for all domains.</p>
+    <textarea id="domains"></textarea>
+
+    <h3>QR Code Size</h3>
+    <p>Set the width and height in pixels.</p>
+    <input type="number" id="size" min="50" max="500" step="10">
+
+    <button id="save">Save</button>
+    <script src="popup.js"></script>
+</body>
+</html> 

@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "MCE Link to QR",
+  "version": "1.0",
+  "description": "Shows a QR code when you hover over a link.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "lib/qrcode.min.js",
+        "content.js"
+      ]
+    }
+  ],
+  "action": {
+    "default_title": "MCE Link to QR",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+} 
