@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load saved settings
     chrome.storage.sync.get(['allowedDomains', 'qrSize'], (result) => {
         if (result.allowedDomains) {
-            domainsTextarea.value = result.allowedDomains.join('\\n');
+            domainsTextarea.value = result.allowedDomains.join('\n');
         }
         if (result.qrSize) {
             sizeInput.value = result.qrSize;
