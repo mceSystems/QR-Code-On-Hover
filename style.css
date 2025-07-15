@@ -1,0 +1,41 @@
+body {
+    width: 500px;
+    padding: 15px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Rounded corners */
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Rounded corners */
+    box-sizing: border-box; /* Makes sure padding doesn't affect final width */
+    font-size: large;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    background-color: #4a90e2; /* A nice blueish color */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #357abd; /* A slightly darker blue on hover */
+}
