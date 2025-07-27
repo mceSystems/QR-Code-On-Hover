@@ -26,8 +26,9 @@ This extension injects a content script into web pages. When you hover over a hy
 ## Usage
 
 1.  Click on the extension's icon in the Chrome toolbar to open the settings popup.
-2.  In the text area, enter the domains you want to enable QR codes for, one domain per line (e.g., `google.com`). If you leave this empty, QR codes will be generated for all domains.
-<img src="ttps://github.com/mceSystems/QR-Code-On-Hover/blob/main/example-settings.png" alt="example-settings.png" width="400"/>
+2.  In the text area, enter the domains you want to enable QR codes for, one domain per line (e.g., `google.com`). If you leave this empty, QR codes will be generated for all domains.<br>
+<img src="example-settings.png" alt="example-settings.png" width="400"/>
+<br>
 3.  Set the desired size (width and height) of the QR code in pixels. The size must be between 50 and 500.
 4.  Click "Save". The settings will apply immediately without needing to refresh the page.
 5.  Navigate to any webpage.
