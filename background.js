@@ -4,6 +4,11 @@ const MAX_DECODE_DIMENSION = 1000; // Downscale huge images before decoding to a
 
 async function decodeQrFromUrl(url) {
     const response = await fetch(url);
+    const contentType = response.headers.get('content-type') || '';
+    if (!response.ok || !contentType.startsWith('image/')) {
+        return null;
+    }
+
     const blob = await response.blob();
     const bitmap = await createImageBitmap(blob);
 
@@ -17,6 +22,9 @@ async function decodeQrFromUrl(url) {
 
     const canvas = new OffscreenCanvas(width, height);
     const ctx = canvas.getContext('2d');
+    if (!ctx) {
+        return null;
+    }
     ctx.drawImage(bitmap, 0, 0, width, height);
 
     const imageData = ctx.getImageData(0, 0, width, height);

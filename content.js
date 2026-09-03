@@ -1,8 +1,16 @@
 let qrCodeDiv = null;
 let qrDecodeDiv = null;
+let qrDecodeShadow = null;
 let decodeHideTimeoutId = null;
 let currentAllowedDomains = [];
 let currentQrSize = 150; // Default size
+
+function isDomainAllowed(hostname) {
+    if (currentAllowedDomains.length === 0) {
+        return true;
+    }
+    return currentAllowedDomains.some(domain => hostname === domain || hostname.endsWith(`.${domain}`));
+}
 
 // Load initial settings and listen for changes
 function initializeSettings() {
@@ -58,12 +66,19 @@ function createQrDecodeDiv() {
         qrDecodeDiv.style.maxWidth = '280px';
         qrDecodeDiv.style.fontFamily = 'Arial, sans-serif';
 
+        // Render the decoded text in a closed shadow root so page scripts can't
+        // read it back out of the DOM. The background worker can fetch and decode
+        // cross-origin images the page itself couldn't read via canvas, so leaving
+        // the result in ordinary page-readable DOM would turn the extension into
+        // a same-origin-policy bypass for that content.
+        qrDecodeShadow = qrDecodeDiv.attachShadow({ mode: 'closed' });
+
         const textDiv = document.createElement('div');
         textDiv.className = 'qr-decode-text';
         textDiv.style.fontSize = '13px';
         textDiv.style.wordBreak = 'break-all';
         textDiv.style.marginBottom = '8px';
-        qrDecodeDiv.appendChild(textDiv);
+        qrDecodeShadow.appendChild(textDiv);
 
         const copyButton = document.createElement('button');
         copyButton.type = 'button';
@@ -84,7 +99,7 @@ function createQrDecodeDiv() {
                 }, 1000);
             });
         });
-        qrDecodeDiv.appendChild(copyButton);
+        qrDecodeShadow.appendChild(copyButton);
 
         // Give the user time to move the cursor from the image onto the popup
         // (e.g. to click Copy) without the gap between them closing it early.
@@ -120,20 +135,13 @@ function showQrCode(e) {
     }
     
     // Check against the cached settings
-    if (currentAllowedDomains.length > 0) {
-        try {
-            const linkUrl = new URL(link.href);
-            const linkDomain = linkUrl.hostname;
-
-            const isAllowed = currentAllowedDomains.some(domain => linkDomain.endsWith(domain));
-
-            if (!isAllowed) {
-                return;
-            }
-        } catch (error) {
-            console.log("Invalid URL, ignoring: ", link.href);
+    try {
+        if (!isDomainAllowed(new URL(link.href).hostname)) {
             return;
         }
+    } catch (error) {
+        console.log("Invalid URL, ignoring: ", link.href);
+        return;
     }
 
     qrCodeDiv.innerHTML = '';
@@ -179,11 +187,8 @@ async function showDecodedQr(e) {
         return;
     }
 
-    if (currentAllowedDomains.length > 0) {
-        const isAllowed = currentAllowedDomains.some(domain => location.hostname.endsWith(domain));
-        if (!isAllowed) {
-            return;
-        }
+    if (!isDomainAllowed(location.hostname)) {
+        return;
     }
 
     const src = img.currentSrc || img.src;
@@ -197,7 +202,7 @@ async function showDecodedQr(e) {
     }
 
     cancelHideDecodedQr();
-    qrDecodeDiv.querySelector('.qr-decode-text').textContent = decodedText;
+    qrDecodeShadow.querySelector('.qr-decode-text').textContent = decodedText;
 
     qrDecodeDiv.style.visibility = 'hidden';
     qrDecodeDiv.style.display = 'block';
@@ -227,7 +232,10 @@ function init() {
     initializeSettings();
 
     document.body.addEventListener('mouseenter', (event) => {
-        if (event.target.tagName === 'A') {
+        if (event.target.closest('a')) {
+            // Takes priority over image decoding so a QR image that's also a
+            // hyperlink (or any other content nested in a link) gets the
+            // link's own QR-encode popup instead of two overlapping popups.
             showQrCode(event);
         } else if (event.target.tagName === 'IMG') {
             showDecodedQr(event);
