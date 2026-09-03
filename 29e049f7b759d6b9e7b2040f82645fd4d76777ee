@@ -1,0 +1,37 @@
+background.js
+  8da16cdc119c2080 1-37
+
+content.js
+  8da16cdc119c2080 2-3,47-115,149,151-152,163-223,226,228,232-233
+
+lib/jsqr.js
+  8da16cdc119c2080 1-10100
+
+manifest.json
+  8da16cdc119c2080 12-14
+
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "base_commit_sha": "433fcf42b6a87b513e716affb3c8e63466a24ca5",
+  "prompts": {
+    "8da16cdc119c2080": {
+      "tool": "claude_code",
+      "id": "ce7cfebd-cdd5-43fc-91e2-893f4a4811b5",
+      "model": "unknown",
+      "author": {
+        "human": "Yaniv Yagolnitzer <yaniv.y@mce-sys.com>"
+      },
+      "total_additions": 10279,
+      "total_deletions": 16,
+      "sparkey": {
+        "attribution_precision": "commit"
+      }
+    }
+  },
+  "sparkey": {
+    "client_version": ""
+  }
+}
+Sparkey-Session-Id: ce7cfebd-cdd5-43fc-91e2-893f4a4811b5
+Sparkey-Contributor-Uuid: 658d007f-5674-4680-b9b8-c0f46ce81909
