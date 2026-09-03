@@ -1,0 +1,34 @@
+README.md
+  914c63c8d27cb993 33-36
+
+background.js
+  914c63c8d27cb993 7-11,25-27
+
+content.js
+  914c63c8d27cb993 3,8-14,69-75,81,102,138-139,142-144,190-191,205,235-238
+
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "base_commit_sha": "23fee56cb49a83ae93d6a8553714a45c930806a2",
+  "prompts": {
+    "914c63c8d27cb993": {
+      "tool": "unknown",
+      "id": "ce7cfebd-cdd5-43fc-91e2-893f4a4811b5",
+      "model": "unknown",
+      "author": {
+        "human": "Yaniv Yagolnitzer <yaniv.y@mce-sys.com>"
+      },
+      "total_additions": 41,
+      "total_deletions": 24,
+      "sparkey": {
+        "attribution_precision": "commit"
+      }
+    }
+  },
+  "sparkey": {
+    "client_version": ""
+  }
+}
+Sparkey-Session-Id: ce7cfebd-cdd5-43fc-91e2-893f4a4811b5
+Sparkey-Contributor-Uuid: 658d007f-5674-4680-b9b8-c0f46ce81909
